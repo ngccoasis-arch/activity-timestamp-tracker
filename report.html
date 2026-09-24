@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="Private activity tracker reports">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css?v=8">
+  <title>Reports · Activity Tracker</title>
+</head>
+<body>
+  <section id="authGate" class="auth-gate" hidden>
+    <div class="auth-panel">
+      <p class="eyebrow">Activity tracker</p>
+      <h1>Welcome back</h1>
+      <p class="hero">Sign in to view your private reports.</p>
+      <button class="btn auth-button" data-auth-login>Continue with Google</button>
+    </div>
+  </section>
+
+  <main id="reportMain" class="app" hidden>
+    <header><p class="eyebrow">Insights</p><h1>Reports</h1><p class="hero">Times use HHMM values. Frequency activities use counts.</p></header>
+    <div class="filters">
+      <div class="segmented" aria-label="Period"><button data-range="week" class="active">Week</button><button data-range="month">Month</button><button data-range="year">Year</button></div>
+      <select id="chartType" aria-label="Chart style"><option value="scatter">Scatter / bar</option><option value="line">Line / bar</option><option value="stacked">Scatter / stacked</option></select>
+    </div>
+    <div id="charts"></div>
+  </main>
+
+  <nav id="appNav" class="nav" aria-label="Bottom navigation" hidden>
+    <a href="index.html">●<span>Record</span></a>
+    <a href="report.html" class="active">▥<span>Reports</span></a>
+  </nav>
+  <script src="vendor/chart.umd.js?v=8"></script>
+  <script src="vendor/supabase.js?v=8"></script>
+  <script src="config.js?v=8"></script>
+  <script src="auth.js?v=8"></script>
+  <script src="db.js?v=8"></script>
+  <script src="sync.js?v=8"></script>
+  <script src="charts.js?v=8"></script>
+</body>
+</html>

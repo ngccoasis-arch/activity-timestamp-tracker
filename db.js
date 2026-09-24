@@ -1,0 +1,12 @@
+/** IndexedDB data layer. No network code belongs in this file. */
+const ActivityDB=(()=>{const DB='activity-timestamp-tracker',VER=4,STORE='records';let promise;
+function open(){if(promise)return promise;promise=new Promise((resolve,reject)=>{const r=indexedDB.open(DB,VER);r.onupgradeneeded=e=>{const db=r.result;if(!db.objectStoreNames.contains(STORE)){const s=db.createObjectStore(STORE,{keyPath:'id'});s.createIndex('timestamp','timestamp');s.createIndex('activity','activity');s.createIndex('syncStatus','syncStatus');s.createIndex('userId','userId')}else if(e.oldVersion<4){const s=r.transaction.objectStore(STORE);s.clear();if(!s.indexNames.contains('userId'))s.createIndex('userId','userId')}};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});return promise}
+async function tx(mode,fn){const db=await open();return new Promise((resolve,reject)=>{const t=db.transaction(STORE,mode),s=t.objectStore(STORE);let result;try{result=fn(s)}catch(e){reject(e)}t.oncomplete=()=>resolve(result);t.onerror=()=>reject(t.error)})}
+const req=r=>new Promise((res,rej)=>{r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+async function add(activity,userId){const now=new Date(),localDate=new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).format(now),time=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false}).format(now);const rec={id:crypto.randomUUID(),userId,activity,date:localDate,time,timestamp:now.toISOString(),source:'Local',syncStatus:'pending',createdAt:Date.now()};await tx('readwrite',s=>s.add(rec));return rec}
+async function all(userId){if(!userId)return[];const db=await open();const rows=await req(db.transaction(STORE).objectStore(STORE).index('timestamp').getAll());return rows.filter(row=>row.userId===userId)}
+async function pending(userId){return (await all(userId)).filter(x=>x.syncStatus!=='synced')}
+async function markSynced(ids){return tx('readwrite',s=>ids.forEach(id=>{const r=s.get(id);r.onsuccess=()=>{if(r.result){r.result.syncStatus='synced';r.result.source='Sync';s.put(r.result)}}}))}
+async function merge(rows,userId){return tx('readwrite',s=>rows.forEach(x=>s.put({...x,userId,syncStatus:'synced',source:'Supabase'})))}
+async function clear(userId){if(!userId)return;return tx('readwrite',s=>{const r=s.index('userId').openCursor(IDBKeyRange.only(userId));r.onsuccess=()=>{const cursor=r.result;if(cursor){cursor.delete();cursor.continue()}}})}
+return{open,add,all,pending,markSynced,merge,clear}})();

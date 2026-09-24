@@ -1,0 +1,7 @@
+{
+  "name":"Activity Timestamp Tracker","short_name":"Activity Tracker","description":"Offline-first one-tap personal activity timestamp tracker.",
+  "start_url":"./index.html","scope":"./","display":"standalone","orientation":"portrait-primary",
+  "background_color":"#07111f","theme_color":"#0b1220","lang":"en",
+  "icons":[{"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},{"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}],
+  "shortcuts":[{"name":"Record activity","short_name":"Record","url":"./index.html"},{"name":"Reports","short_name":"Reports","url":"./report.html"}]
+}
