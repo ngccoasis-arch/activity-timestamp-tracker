@@ -7,7 +7,7 @@
   <meta name="description" content="Private offline-first activity timestamp tracker">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icons/icon-192.png">
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
   <title>Activity Tracker</title>
 </head>
 <body>
@@ -25,13 +25,13 @@
       <div><p class="eyebrow">Activity tracker</p><h1>Record now</h1></div>
       <div class="status"><span id="statusDot" class="dot"></span><span id="statusText">Starting…</span></div>
     </header>
-    <p class="hero">One tap records the current time. Everything stays available offline.</p>
+    <p class="hero">Choose an activity time. Everything stays available offline.</p>
     <section class="activities" aria-label="Activities">
-      <button class="activity" data-activity="Wash"><strong>Wash</strong><span class="latest" data-latest="Wash">Loading…</span></button>
-      <button class="activity" data-activity="Out"><strong>Out</strong><span class="latest" data-latest="Out">Loading…</span></button>
-      <button class="activity" data-activity="Reach"><strong>Reach</strong><span class="latest" data-latest="Reach">Loading…</span></button>
-      <button class="activity" data-activity="Poop"><strong>Poop</strong><span class="latest" data-latest="Poop">Loading…</span></button>
-      <button class="activity" data-activity="OP"><strong>OP</strong><span class="latest" data-latest="OP">Loading…</span></button>
+      <article class="activity"><strong>Wash</strong><span class="latest" data-latest="Wash">Loading…</span><button class="add-activity" data-activity="Wash" aria-label="Add Wash record">＋</button></article>
+      <article class="activity"><strong>Out</strong><span class="latest" data-latest="Out">Loading…</span><button class="add-activity" data-activity="Out" aria-label="Add Out record">＋</button></article>
+      <article class="activity"><strong>Reach</strong><span class="latest" data-latest="Reach">Loading…</span><button class="add-activity" data-activity="Reach" aria-label="Add Reach record">＋</button></article>
+      <article class="activity"><strong>Poop</strong><span class="latest" data-latest="Poop">Loading…</span><button class="add-activity" data-activity="Poop" aria-label="Add Poop record">＋</button></article>
+      <article class="activity"><strong>OP</strong><span class="latest" data-latest="OP">Loading…</span><button class="add-activity" data-activity="OP" aria-label="Add OP record">＋</button></article>
     </section>
     <section class="summary">
       <div class="summary-head"><h2>Today</h2><span class="count" id="todayCount">0 records</span></div>
@@ -48,12 +48,53 @@
     <a href="index.html" class="active">●<span>Record</span></a>
     <a href="report.html">▥<span>Reports</span></a>
   </nav>
+
+  <div id="pickerBackdrop" class="picker-backdrop" hidden>
+    <section id="timePicker" class="picker-dialog" role="dialog" aria-modal="true" aria-labelledby="pickerTitle">
+      <div id="timePickerView">
+        <header class="picker-header">
+          <div><p class="eyebrow">New record</p><h2 id="pickerTitle">Choose a time</h2></div>
+          <button id="closePickerBtn" class="icon-button" type="button" aria-label="Close time picker">×</button>
+        </header>
+        <p id="pickerActivity" class="picker-activity"></p>
+        <div class="wheel-wrap">
+          <div class="selection-band" aria-hidden="true"></div>
+          <div id="hourWheel" class="time-wheel" role="listbox" tabindex="0" aria-label="Hour"></div>
+          <span class="time-separator" aria-hidden="true">:</span>
+          <div id="minuteWheel" class="time-wheel" role="listbox" tabindex="0" aria-label="Minute"></div>
+        </div>
+        <p id="selectedTimeAnnouncement" class="sr-only" aria-live="polite"></p>
+        <button id="openCalendarBtn" class="date-control" type="button">
+          <span><small>Date</small><strong id="selectedDateLabel">Today</strong></span><span aria-hidden="true">›</span>
+        </button>
+        <div class="picker-actions">
+          <button id="cancelPickerBtn" class="btn quiet" type="button">Cancel</button>
+          <button id="confirmPickerBtn" class="btn" type="button">Confirm</button>
+        </div>
+      </div>
+
+      <div id="calendarView" hidden>
+        <header class="picker-header">
+          <button id="calendarBackBtn" class="icon-button back-button" type="button" aria-label="Back to time picker">‹</button>
+          <div><p class="eyebrow">Advanced date</p><h2 id="calendarTitle">Choose a date</h2></div>
+        </header>
+        <div class="calendar-toolbar">
+          <button id="previousMonthBtn" class="icon-button" type="button" aria-label="Previous month">‹</button>
+          <strong id="calendarMonthLabel"></strong>
+          <button id="nextMonthBtn" class="icon-button" type="button" aria-label="Next month">›</button>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+        <div id="calendarGrid" class="calendar-grid" role="grid" aria-labelledby="calendarTitle"></div>
+        <button id="calendarDoneBtn" class="btn calendar-done" type="button">Back to time</button>
+      </div>
+    </section>
+  </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="vendor/supabase.js?v=8"></script>
-  <script src="config.js?v=8"></script>
-  <script src="auth.js?v=8"></script>
-  <script src="db.js?v=8"></script>
-  <script src="sync.js?v=8"></script>
-  <script src="app.js?v=8"></script>
+  <script src="vendor/supabase.js?v=9"></script>
+  <script src="config.js?v=9"></script>
+  <script src="auth.js?v=9"></script>
+  <script src="db.js?v=9"></script>
+  <script src="sync.js?v=9"></script>
+  <script src="app.js?v=9"></script>
 </body>
 </html>

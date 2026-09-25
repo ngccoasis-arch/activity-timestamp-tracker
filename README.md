@@ -1,7 +1,7 @@
 # Activity Timestamp Tracker
 
 ## Architecture
-- **UI:** `index.html` + `app.js` for one-tap recording; `report.html` + `charts.js` for analytics.
+- **UI:** `index.html` + `app.js` for wheel-based date/time recording; `report.html` + `charts.js` for analytics.
 - **Local data:** `db.js` owns IndexedDB and stores immutable UUID-based records.
 - **Authentication:** `auth.js` owns the persisted Google/Supabase session.
 - **Cloud sync:** `sync.js` owns authenticated Supabase REST calls. UI/data code does not call Supabase directly.
@@ -39,7 +39,7 @@ A tap always writes to the signed-in user's IndexedDB partition first and update
 Database version 4 performs a one-time reset of pre-authentication local records and adds per-user ownership. The **Reset local data** button clears only the current user's device cache; cloud records return on the next sync.
 
 ## Mobile optimization
-The layout is mobile-first, portrait-oriented, safe-area aware, one-handed, and uses 92px touch targets. Assets are local, rendering is dependency-light, motion is subtle, contrast is high, and vibration feedback is optional.
+The layout is mobile-first, portrait-oriented, safe-area aware, and one-handed. Each activity has a dedicated add button that opens a themed 24-hour wheel picker. Records default to the current local minute, with an advanced calendar for today or any of the preceding 29 days. Assets are local, rendering is dependency-light, motion is subtle, contrast is high, and vibration feedback is optional.
 
 ## Production deployment checks
 - Use HTTPS in production.
