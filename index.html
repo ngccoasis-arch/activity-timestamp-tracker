@@ -7,7 +7,7 @@
   <meta name="description" content="Private offline-first activity timestamp tracker">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icons/icon-192.png">
-  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="style.css?v=10">
   <title>Activity Tracker</title>
 </head>
 <body>
@@ -25,13 +25,13 @@
       <div><p class="eyebrow">Activity tracker</p><h1>Record now</h1></div>
       <div class="status"><span id="statusDot" class="dot"></span><span id="statusText">Starting…</span></div>
     </header>
-    <p class="hero">Choose an activity time. Everything stays available offline.</p>
+    <p class="hero">Tap an activity to record now, or use + to choose a time.</p>
     <section class="activities" aria-label="Activities">
-      <article class="activity"><strong>Wash</strong><span class="latest" data-latest="Wash">Loading…</span><button class="add-activity" data-activity="Wash" aria-label="Add Wash record">＋</button></article>
-      <article class="activity"><strong>Out</strong><span class="latest" data-latest="Out">Loading…</span><button class="add-activity" data-activity="Out" aria-label="Add Out record">＋</button></article>
-      <article class="activity"><strong>Reach</strong><span class="latest" data-latest="Reach">Loading…</span><button class="add-activity" data-activity="Reach" aria-label="Add Reach record">＋</button></article>
-      <article class="activity"><strong>Poop</strong><span class="latest" data-latest="Poop">Loading…</span><button class="add-activity" data-activity="Poop" aria-label="Add Poop record">＋</button></article>
-      <article class="activity"><strong>OP</strong><span class="latest" data-latest="OP">Loading…</span><button class="add-activity" data-activity="OP" aria-label="Add OP record">＋</button></article>
+      <article class="activity"><button class="record-now" data-activity="Wash" aria-label="Record Wash now"><strong>Wash</strong><span class="latest" data-latest="Wash">Loading…</span></button><button class="add-activity" data-activity="Wash" aria-label="Choose date and time for Wash record">＋</button></article>
+      <article class="activity"><button class="record-now" data-activity="Out" aria-label="Record Out now"><strong>Out</strong><span class="latest" data-latest="Out">Loading…</span></button><button class="add-activity" data-activity="Out" aria-label="Choose date and time for Out record">＋</button></article>
+      <article class="activity"><button class="record-now" data-activity="Reach" aria-label="Record Reach now"><strong>Reach</strong><span class="latest" data-latest="Reach">Loading…</span></button><button class="add-activity" data-activity="Reach" aria-label="Choose date and time for Reach record">＋</button></article>
+      <article class="activity"><button class="record-now" data-activity="Poop" aria-label="Record Poop now"><strong>Poop</strong><span class="latest" data-latest="Poop">Loading…</span></button><button class="add-activity" data-activity="Poop" aria-label="Choose date and time for Poop record">＋</button></article>
+      <article class="activity"><button class="record-now" data-activity="OP" aria-label="Record OP now"><strong>OP</strong><span class="latest" data-latest="OP">Loading…</span></button><button class="add-activity" data-activity="OP" aria-label="Choose date and time for OP record">＋</button></article>
     </section>
     <section class="summary">
       <div class="summary-head"><h2>Today</h2><span class="count" id="todayCount">0 records</span></div>
@@ -90,11 +90,11 @@
     </section>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="vendor/supabase.js?v=9"></script>
-  <script src="config.js?v=9"></script>
-  <script src="auth.js?v=9"></script>
-  <script src="db.js?v=9"></script>
-  <script src="sync.js?v=9"></script>
-  <script src="app.js?v=9"></script>
+  <script src="vendor/supabase.js?v=10"></script>
+  <script src="config.js?v=10"></script>
+  <script src="auth.js?v=10"></script>
+  <script src="db.js?v=10"></script>
+  <script src="sync.js?v=10"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

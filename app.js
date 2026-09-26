@@ -301,6 +301,9 @@ async function init() {
   document.querySelectorAll('.add-activity').forEach(button =>
     button.addEventListener('click', () => openPicker(button.dataset.activity, button))
   );
+  document.querySelectorAll('.record-now').forEach(button =>
+    button.addEventListener('click', () => record(button.dataset.activity, button))
+  );
   document.querySelectorAll('.time-wheel').forEach(wheel => {
     wheel.addEventListener('scroll', () => {
       settleWheel(wheel);

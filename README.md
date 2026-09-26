@@ -39,7 +39,7 @@ A tap always writes to the signed-in user's IndexedDB partition first and update
 Database version 4 performs a one-time reset of pre-authentication local records and adds per-user ownership. The **Reset local data** button clears only the current user's device cache; cloud records return on the next sync.
 
 ## Mobile optimization
-The layout is mobile-first, portrait-oriented, safe-area aware, and one-handed. Each activity has a dedicated add button that opens a themed 24-hour wheel picker. Records default to the current local minute, with an advanced calendar for today or any of the preceding 29 days. Assets are local, rendering is dependency-light, motion is subtle, contrast is high, and vibration feedback is optional.
+The layout is mobile-first, portrait-oriented, safe-area aware, and one-handed. Tapping the main area of an activity records the current local time immediately, while its dedicated add button opens a themed 24-hour wheel picker. Picker records default to the current local minute, with an advanced calendar for today or any of the preceding 29 days. Assets are local, rendering is dependency-light, motion is subtle, contrast is high, and vibration feedback is optional.
 
 ## Production deployment checks
 - Use HTTPS in production.
