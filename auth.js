@@ -8,7 +8,7 @@ const AuthService = (() => {
     {
       auth: {
         persistSession: true,
-        autoRefreshToken: true,
+        autoRefreshToken: navigator.onLine,
         detectSessionInUrl: true
       }
     }
@@ -29,8 +29,19 @@ const AuthService = (() => {
   async function init() {
     if (!client) throw new Error('Supabase Auth is not configured.');
     if (!initialized) {
-      client.auth.onAuthStateChange((_event, session) => notify(session));
+      client.auth.onAuthStateChange((event, session) => {
+        if (event === 'INITIAL_SESSION' && !navigator.onLine) return;
+        notify(session);
+      });
+      addEventListener('online', () => client.auth.startAutoRefresh());
+      addEventListener('offline', () => client.auth.stopAutoRefresh());
       initialized = true;
+    }
+    if (!navigator.onLine) {
+      // Reuse Supabase's persisted session; offline startup must not wait for token refresh.
+      const saved = JSON.parse(localStorage.getItem(client.storageKey) || 'null');
+      currentSession = saved?.user?.id && saved.access_token && saved.refresh_token ? saved : null;
+      return currentSession;
     }
     const { data, error } = await client.auth.getSession();
     if (error) throw error;

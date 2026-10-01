@@ -79,6 +79,7 @@ const SyncService = (() => {
     const user = AuthService.user();
     if (syncing || !navigator.onLine || !configured() || !user) return { skipped: true };
     syncing = true;
+    dispatchEvent(new Event('syncstatuschange'));
     try {
       const remote = await readRemote();
       await ActivityDB.merge(remote, user.id);
@@ -91,9 +92,10 @@ const SyncService = (() => {
       return { uploaded: pending.length, downloaded: remote.length };
     } finally {
       syncing = false;
+      dispatchEvent(new Event('syncstatuschange'));
     }
   }
 
   const connect = () => sync();
-  return { configured, connect, sync, readRemote, append, CONFIG };
+  return { configured, connect, sync, readRemote, append, CONFIG, isSyncing: () => syncing };
 })();

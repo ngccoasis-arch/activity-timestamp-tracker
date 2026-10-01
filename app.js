@@ -219,6 +219,7 @@ async function render() {
     const value = matches.length ? `${matches.length} · ${matches.at(-1).time}` : '—';
     return `<li><span>${escapeHTML(activity)}</span><b>${value}</b></li>`;
   }).join('');
+  await updateStatus();
 }
 
 async function record(activity, button, occurredAt) {
@@ -263,11 +264,15 @@ async function confirmPicker() {
   }
 }
 
-function updateStatus() {
+async function updateStatus() {
   if (!currentUser) return;
+  const userId = currentUser.id;
+  const pending = (await ActivityDB.pending(userId)).length;
+  if (currentUser?.id !== userId) return;
   const online = navigator.onLine;
   $('#statusDot').classList.toggle('offline', !online);
-  $('#statusText').textContent = online ? 'Online · private sync' : 'Offline · saved locally';
+  const state = !online ? 'Offline' : SyncService.isSyncing() ? 'Syncing' : 'Online';
+  $('#statusText').textContent = `${state} — ${pending || !online || SyncService.isSyncing() ? `${pending} Pending` : 'Synced'}`;
 }
 
 async function applySession(session) {
@@ -381,6 +386,7 @@ async function init() {
     SyncService.sync().then(render).catch(console.warn);
   });
   addEventListener('offline', updateStatus);
+  addEventListener('syncstatuschange', () => updateStatus().catch(console.warn));
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
   AuthService.subscribe(session => applySession(session).catch(console.error));
   await applySession(await AuthService.init());

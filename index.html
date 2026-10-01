@@ -7,7 +7,7 @@
   <meta name="description" content="Private offline-first activity timestamp tracker">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icons/icon-192.png">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=11">
   <title>Activity Tracker</title>
 </head>
 <body>
@@ -23,7 +23,7 @@
   <main id="appMain" class="app" hidden>
     <header class="topbar">
       <div><p class="eyebrow">Activity tracker</p><h1>Record now</h1></div>
-      <div class="status"><span id="statusDot" class="dot"></span><span id="statusText">Starting…</span></div>
+      <div class="status" role="status" aria-live="polite"><span id="statusDot" class="dot"></span><span id="statusText">Starting…</span></div>
     </header>
     <p class="hero">Tap an activity to record now, or use + to choose a time.</p>
     <section class="activities" aria-label="Activities">
@@ -90,11 +90,11 @@
     </section>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="vendor/supabase.js?v=10"></script>
-  <script src="config.js?v=10"></script>
-  <script src="auth.js?v=10"></script>
-  <script src="db.js?v=10"></script>
-  <script src="sync.js?v=10"></script>
-  <script src="app.js?v=10"></script>
+  <script src="vendor/supabase.js?v=11"></script>
+  <script src="config.js?v=11"></script>
+  <script src="auth.js?v=11"></script>
+  <script src="db.js?v=11"></script>
+  <script src="sync.js?v=11"></script>
+  <script src="app.js?v=11"></script>
 </body>
 </html>
